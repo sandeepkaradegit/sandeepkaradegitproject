@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Displays site name.
+ * Displays site name Git project.
  */
 function siteName()
 {
