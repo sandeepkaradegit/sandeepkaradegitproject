@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent ip-172-31-42-91.eu-central-1.compute.internal
 
     stages {
         stage('Get') {
