@@ -2,15 +2,12 @@ pipeline {
     agent {
         node {
             label 'PHPonDocker'
-            customWorkspace '/home/ubuntu/jenkin-agent'
             }
          }
 
     stages {
         stage('Get') {
             steps {
-                sudo apt-get update
-                sudo apt-get install git
                 git 'https://github.com/sandeepkaradegit/sandeepkaradegitproject.git'
             }
         }
