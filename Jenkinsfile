@@ -1,9 +1,10 @@
 pipeline {
     agent {
-    node {
-        label 'PHPonDocker'
-        customWorkspace '/home/ubuntu/jenkin-agent'
-    }
+        node {
+            label 'PHPonDocker'
+            customWorkspace '/home/ubuntu/jenkin-agent'
+            }
+         }
 
     stages {
         stage('Get') {
