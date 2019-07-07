@@ -1,5 +1,9 @@
 pipeline {
-    agent ip-172-31-42-91.eu-central-1.compute.internal
+    agent {
+    node {
+        label 'PHPonDocker'
+        customWorkspace '/home/ubuntu/jenkin-agent'
+    }
 
     stages {
         stage('Get') {
