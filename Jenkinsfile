@@ -1,4 +1,4 @@
-pipeline {
+npipeline {
     agent any
 
     stages {
@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                echo 'Building..'
+                echo 'Git Auto trigger Building..'
             }
         }
         stage('Test') {
