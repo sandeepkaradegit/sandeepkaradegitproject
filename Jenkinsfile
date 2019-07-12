@@ -1,5 +1,8 @@
 pipeline {
     agent {
+        node {
+            label 'PHPonDocker'
+            }
         dockerfile true
          }
 
