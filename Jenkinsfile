@@ -10,11 +10,10 @@ pipeline {
             }
         }
         stage('Build') {
-        		agent {
-						dockerfile true
-    				}
             steps {
                 echo 'Git Auto trigger Building..'
+                sh 'docker build -t mysite /home/ubuntu/jenkin-agent/workspace/devops/'
+		sh 'docker run -p 8080:80 -d mysite'
             }
         }
         stage('Test') {
