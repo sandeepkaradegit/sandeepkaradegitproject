@@ -1,16 +1,18 @@
 pipeline {
     agent {
         label 'PHPonDocker'
-        dockerfile true
-         }
+        }
 
     stages {
-        stage('Get') {
+    	  stage('Get') {
             steps {
                 git 'https://github.com/sandeepkaradegit/sandeepkaradegitproject.git'
             }
         }
         stage('Build') {
+        		agent {
+						dockerfile true
+    				}
             steps {
                 echo 'Git Auto trigger Building..'
             }
