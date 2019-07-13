@@ -12,10 +12,9 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Git Auto trigger Building..'
-		sh 'docker ps'
 		sh 'sudo docker ps'
-                sh 'docker build -t mysite /home/ubuntu/jenkin-agent/workspace/devops/'
-		sh 'docker run -p 8080:80 -d mysite'
+                sh 'sudo docker build -t mysite /home/ubuntu/jenkin-agent/workspace/devops/'
+		sh 'sudo docker run -p 8080:80 -d mysite'
             }
         }
         stage('Test') {
