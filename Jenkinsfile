@@ -12,9 +12,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Docker image build started..'
-		sh 'sudo docker ps'
-                sh 'sudo docker build -t phpapacheimage /home/ubuntu/jenkin-agent/workspace/devops/'
-		sh 'docker run -d --name=apachetest -p 8083:80 -v /home/ubuntu/jenkin-agent/workspace/devops/website:/var/www/html php:apache'
+		sh 'sudo docker pull php:apache'
+		sh 'docker run -d --name=apachetest -p 8085:80 -v /home/ubuntu/jenkin-agent/workspace/devops/website:/var/www/html php:apache'
 		echo 'Docker image build started..'
             }
         }
