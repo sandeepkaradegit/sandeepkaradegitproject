@@ -1,4 +1,5 @@
 pipeline {
+
     agent {
         label 'DOCKERNEW'
         }
@@ -18,8 +19,8 @@ pipeline {
 			sh 'git --version'
 			sh 'docker --version'
 		    	sh 'mkdir /home/ubuntu/jenkin-agent'
-		    	catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    	sh 'exit 0'
+		    	catchError(stageResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    	sh 'exit 1'
                 		}
             		}
         	}
