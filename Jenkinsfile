@@ -15,9 +15,10 @@
 				sh 'sudo apt-get update'
 				sh 'sudo apt-get install puppet -y'
 				script {
-                 puppet_agent = sh 'grep ip-172-31-35-33.eu-central-1.compute.internal /etc/puppet/puppet.conf|wc -l'
+                 		puppet_agent = sh 'grep ip-172-31-35-33.eu-central-1.compute.internal /etc/puppet/puppet.conf|wc -l'
+				echo ${puppet_agent}
 			}
-                 echo ${puppet_agent}
+                 
                 script { 
 		if ( 'x${puppet_agent}' == 'x0')
                  {
