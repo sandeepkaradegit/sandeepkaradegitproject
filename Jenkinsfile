@@ -4,7 +4,6 @@ pipeline {
         }
 
     stages {
-    	 try {
     	  stage('Preparation') {
             steps {
             		sh 'java -version'
@@ -19,12 +18,13 @@ pipeline {
 			sh 'git --version'
 			sh 'docker --version'
 		    	sh 'mkdir /home/ubuntu/jenkin-agent'
+		    	catchError {
+            build job: 'system-check-flow'
+        		}
+        		echo currentBuild.result
             }
         }
-        }
-        catch (Exception e) {
-   				 echo "Stage failed, but we continue"  
- 				}
+        
     	/*  stage('GetSource') {
             steps {
                 git 'https://github.com/sandeepkaradegit/sandeepkaradegitproject.git'
