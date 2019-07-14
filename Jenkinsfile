@@ -14,7 +14,18 @@ pipeline {
 		        sh 'sudo sh -c "echo server=ip-172-31-35-33.eu-central-1.compute.internal >> /etc/puppet/puppet.conf"'
 			sh 'sudo puppet agent --enable'
 			echo 'Puppet Agent will install Docker and Git CLI..'
-			sh 'sudo puppet agent -t|| true'
+			//sh 'sudo puppet agent -t|| true'
+			def r = sh script: 'sudo puppet agent -t', returnStatus: true
+			if (r != 0) 
+        { 
+            sh "echo 'exit code is NOT zero'"
+            currentBuild.result = 'UNSTABLE'
+        } 
+        else 
+        {
+            sh "echo 'exit code is zero'"
+            currentBuild.result = 'SUCCESS'
+        }
 			sh 'git --version'
 			sh 'docker --version'
 		    	sh 'mkdir /home/ubuntu/jenkin-agent|| true'
