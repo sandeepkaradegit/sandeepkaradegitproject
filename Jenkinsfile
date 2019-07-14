@@ -1,4 +1,4 @@
-	def  puppet_agent = 'Unknown'
+	def  puppet_agent = 0
 	pipeline {
 			environment {
 	        JOB_NAME = "${env.JOB_NAME}"
