@@ -3,11 +3,10 @@ pipeline {
     agent {
         label 'DOCKERNEW'
         }
-
+		def build_ok = true
     stages {
-    def build_ok = true
+    stage('Preparation') {
     try{
-    	  stage('Preparation') {
             steps {
             		sh 'java -version'
             		echo 'Puppet Agent Install and Configure..'
@@ -22,12 +21,11 @@ pipeline {
 			sh 'docker --version'
 		    	sh 'mkdir /home/ubuntu/jenkin-agent'
             		}
-        	}
     } catch(e) {
         build_ok = false
         echo e.toString()  
     }
-
+		}
         
     	/*  stage('GetSource') {
             steps {
