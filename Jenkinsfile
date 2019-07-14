@@ -26,12 +26,14 @@ pipeline {
 	    stage('Job4BUILD')   {
 	       	steps {
 	               	echo 'Docker image build started..'
+			sh 'mkdir -p /home/ubuntu/jenkin-agent/rel/${JOB_NAME}${BUILD_NUMBER}'
+			sh 'mv /home/ubuntu/jenkin-agent/workspace/devops/website/* /home/ubuntu/jenkin-agent/rel/${JOB_NAME}${BUILD_NUMBER}'
 	   		sh 'sudo docker images'
 			sh 'sudo docker ps -a'
 			sh 'sudo docker pull php:apache'
 			sh 'sudo docker stop ${JOB_NAME}${BUILD_NUMBER}||true'
 			sh 'sudo docker rm ${JOB_NAME}${BUILD_NUMBER}||true'
-			sh 'sudo docker run -d --name=${JOB_NAME}${BUILD_NUMBER} -p 80${BUILD_NUMBER}:80 -v /home/ubuntu/jenkin-agent/workspace/devops/website:/var/www/html php:apache'
+			sh 'sudo docker run -d --name=${JOB_NAME}${BUILD_NUMBER} -p 80${BUILD_NUMBER}:80 -v /home/ubuntu/jenkin-agent/rel/${JOB_NAME}${BUILD_NUMBER}:/var/www/html php:apache'
 			sh 'sudo docker images'
 			sh 'sudo docker ps -a'
 			echo 'Docker image build started..'
