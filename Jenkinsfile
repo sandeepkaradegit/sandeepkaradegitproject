@@ -16,8 +16,10 @@
 				sh 'sudo apt-get install puppet -y'
 				script {
                  puppet_agent = sh 'grep ip-172-31-35-33.eu-central-1.compute.internal /etc/puppet/puppet.conf|wc -l'
+			}
                  echo ${puppet_agent}
-                 if ( 'x${puppet_agent}' == 'x0')
+                script { 
+		if ( 'x${puppet_agent}' == 'x0')
                  {
                  sh 'sudo sh -c "echo [agent] >> /etc/puppet/puppet.conf"'
 		 sh 'sudo sh -c "echo server=ip-172-31-35-33.eu-central-1.compute.internal >> /etc/puppet/puppet.conf"'
