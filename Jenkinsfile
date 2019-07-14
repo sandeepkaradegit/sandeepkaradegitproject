@@ -6,7 +6,7 @@ pipeline {
     stages {
     	  stage('Preparation') {
             steps {
-            		sh 'Java --version'
+            		sh 'java -version'
             		echo 'Puppet Agent Install and Configure..'
 			sh 'sudo apt-get update'
 			sh 'sudo apt-get install puppet -y'
