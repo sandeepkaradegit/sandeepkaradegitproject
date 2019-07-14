@@ -26,8 +26,8 @@ pipeline {
 	    stage('Job4BUILD')   {
 	       	steps {
 	               	echo 'Docker image build started..'
-			sh 'mkdir -p /home/ubuntu/jenkin-agent/rel/${JOB_NAME}${BUILD_NUMBER}'
-			sh 'mv /home/ubuntu/jenkin-agent/workspace/devops/website/* /home/ubuntu/jenkin-agent/rel/${JOB_NAME}${BUILD_NUMBER}'
+			sh 'sudo mkdir -p /home/ubuntu/jenkin-agent/rel/${JOB_NAME}${BUILD_NUMBER}'
+			sh 'sudo mv /home/ubuntu/jenkin-agent/workspace/devops/website/* /home/ubuntu/jenkin-agent/rel/${JOB_NAME}${BUILD_NUMBER}'
 	   		sh 'sudo docker images'
 			sh 'sudo docker ps -a'
 			sh 'sudo docker pull php:apache'
