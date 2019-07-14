@@ -11,10 +11,11 @@ pipeline {
         }
         stage('Build') {
             steps {
-                echo 'Git Auto trigger Building..'
+                echo 'Docker image build started..'
 		sh 'sudo docker ps'
-                sh 'sudo docker build -t mysite /home/ubuntu/jenkin-agent/workspace/devops/'
-		sh 'sudo docker run -p 8080:80 -d mysite'
+                sh 'sudo docker build -t phpapacheimage /home/ubuntu/jenkin-agent/workspace/devops/'
+		sh 'docker run -d --name=apachetest -p 8083:80 -v /home/ubuntu/jenkin-agent/workspace/devops/website:/var/www/html php:apache'
+		echo 'Docker image build started..'
             }
         }
         stage('Test') {
