@@ -5,6 +5,8 @@ pipeline {
         }
 
     stages {
+    def build_ok = true
+    try{
     	  stage('Preparation') {
             steps {
             		sh 'java -version'
@@ -19,11 +21,13 @@ pipeline {
 			sh 'git --version'
 			sh 'docker --version'
 		    	sh 'mkdir /home/ubuntu/jenkin-agent'
-		    	catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
-                    	sh 'exit 1'
-                		}
             		}
         	}
+    } catch(e) {
+        build_ok = false
+        echo e.toString()  
+    }
+
         
     	/*  stage('GetSource') {
             steps {
@@ -38,20 +42,22 @@ pipeline {
 		sh 'sudo docker images'
 		sh 'sudo docker ps -a'
 		echo 'Docker image build started..'
-		sh 'exit 0'
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing..'
-                sh 'exit 0'
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-                sh 'exit 0'
             }
         }
+    if(build_ok) {
+        currentBuild.result = "SUCCESS"
+    } else {
+        currentBuild.result = "FAILURE"
+    }
     }
 }
