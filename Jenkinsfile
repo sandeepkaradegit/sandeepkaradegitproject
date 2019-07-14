@@ -19,7 +19,7 @@ pipeline {
 			sh 'git --version'
 			sh 'docker --version'
 		    	sh 'mkdir /home/ubuntu/jenkin-agent'
-		    	catchError(stageResult: 'SUCCESS', stageResult: 'FAILURE') {
+		    	catchError(stageResult: 'SUCCESS', buildResult: 'FAILURE') {
                     	sh 'exit 1'
                 		}
             		}
