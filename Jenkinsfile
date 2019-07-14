@@ -1,5 +1,8 @@
 pipeline {
-
+		environment {
+        JOB_NAME = "${env.JOB_NAME}"
+        BUILD_NUMBER = "${env.BUILD_NUMBER}"
+    }
     agent {
         	label 'DOCKERNEW'
         	}
@@ -32,9 +35,9 @@ pipeline {
     sh 'sudo docker images'
 		sh 'sudo docker ps -a'
 		sh 'sudo docker pull php:apache'
-		sh 'sudo docker stop apachetest||true'
-		sh 'sudo docker rm apachetest||true'
-		sh 'sudo docker run -d --name=apachetest -p 8085:80 -v /home/ubuntu/jenkin-agent/workspace/devops/website:/var/www/html php:apache'
+		sh 'sudo docker stop ${JOB_NAME}${BUILD_NUMBER}||true'
+		sh 'sudo docker rm ${JOB_NAME}${BUILD_NUMBER}||true'
+		sh 'sudo docker run -d --name=${JOB_NAME}${BUILD_NUMBER} -p 8085:80 -v /home/ubuntu/jenkin-agent/workspace/devops/website:/var/www/html php:apache'
 		sh 'sudo docker images'
 		sh 'sudo docker ps -a'
 		echo 'Docker image build started..'
