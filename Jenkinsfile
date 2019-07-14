@@ -17,6 +17,7 @@ pipeline {
 			sh 'sudo puppet agent -t'
 			sh 'git --version'
 			sh 'docker --version'
+		    	sh 'mkdir /home/ubuntu/jenkin-agent'
             }
         }
     	  stage('GetSource') {
