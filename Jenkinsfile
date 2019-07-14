@@ -4,6 +4,7 @@ pipeline {
         }
 
     stages {
+    	 try {
     	  stage('Preparation') {
             steps {
             		sh 'java -version'
@@ -20,6 +21,10 @@ pipeline {
 		    	sh 'mkdir /home/ubuntu/jenkin-agent'
             }
         }
+        }
+        catch (Exception e) {
+   				 echo "Stage failed, but we continue"  
+ 				}
     	/*  stage('GetSource') {
             steps {
                 git 'https://github.com/sandeepkaradegit/sandeepkaradegitproject.git'
