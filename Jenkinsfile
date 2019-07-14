@@ -1,10 +1,25 @@
 pipeline {
     agent {
-        label 'PHPonDocker'
+        label 'DOCKERNEW'
         }
 
     stages {
-    	  stage('Get') {
+    	  stage('Preparation') {
+            steps {
+            		sh 'Java --version'
+            		echo 'Puppet Agent Install and Configure..'
+			sh 'sudo apt-get update'
+			sh 'sudo apt-get install puppet -y'
+			sh 'sudo sh -c "echo [agent] >> /etc/puppet/puppet.conf"'
+		        sh 'sudo sh -c "echo server=ip-172-31-35-33.eu-central-1.compute.internal >> /etc/puppet/puppet.conf"'
+			sh 'sudo puppet agent --enable'
+			echo 'Puppet Agent will install Docker and Git CLI..'
+			sh 'sudo puppet agent -t'
+			sh 'git --version'
+			sh 'docker --version'
+            }
+        }
+    	  stage('GetSource') {
             steps {
                 git 'https://github.com/sandeepkaradegit/sandeepkaradegitproject.git'
             }
