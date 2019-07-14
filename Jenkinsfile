@@ -18,12 +18,11 @@ pipeline {
 			sh 'git --version'
 			sh 'docker --version'
 		    	sh 'mkdir /home/ubuntu/jenkin-agent'
-		    	catchError {
-            build job: 'system-check-flow'
-        		}
-        		echo currentBuild.result
-            }
-        }
+		    	catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    	sh 'exit 0'
+                		}
+            		}
+        	}
         
     	/*  stage('GetSource') {
             steps {
@@ -38,16 +37,19 @@ pipeline {
 		sh 'sudo docker images'
 		sh 'sudo docker ps -a'
 		echo 'Docker image build started..'
+		sh 'exit 0'
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing..'
+                sh 'exit 0'
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
+                sh 'exit 0'
             }
         }
     }
