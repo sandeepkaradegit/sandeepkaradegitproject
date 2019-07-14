@@ -20,11 +20,11 @@ pipeline {
 		    	sh 'mkdir /home/ubuntu/jenkin-agent'
             }
         }
-    	  stage('GetSource') {
+    	/*  stage('GetSource') {
             steps {
                 git 'https://github.com/sandeepkaradegit/sandeepkaradegitproject.git'
             }
-        }
+        }*/
         stage('Build') {
             steps {
                 echo 'Docker image build started..'
