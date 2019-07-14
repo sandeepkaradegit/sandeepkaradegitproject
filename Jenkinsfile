@@ -1,47 +1,32 @@
-	def  puppet_agent = 0
-	pipeline {
-			environment {
-	        JOB_NAME = "${env.JOB_NAME}"
+pipeline {
+	environment {
+		JOB_NAME = "${env.JOB_NAME}"
 	        BUILD_NUMBER = "${env.BUILD_NUMBER}"
-	    }
-	    agent {
-	        	label 'DOCKERNEW'
-	        	}
-	    stages {
-	    				stage('Preparation') {
-	      			steps {
-	            		sh 'java -version'
-	            		echo 'Puppet Agent Install and Configure..'
-				sh 'sudo apt-get update'
-				sh 'sudo apt-get install puppet -y'
-				script {
-                 		puppet_agent = sh 'grep ip-172-31-35-33.eu-central-1.compute.internal /etc/puppet/puppet.conf|wc -l'
-				}
-				script {
-				if ( 'x${puppet_agent}' == 'x0')
-				{
-				sh 'sudo sh -c "echo [agent] >> /etc/puppet/puppet.conf"'
-		 		sh 'sudo sh -c "echo server=ip-172-31-35-33.eu-central-1.compute.internal >> /etc/puppet/puppet.conf"'
-				}
-					}              
-				sh 'sudo puppet agent --enable'
-				echo 'Puppet Agent will install Docker and Git CLI..'
-				sh 'sudo puppet agent -t|| true'
-				sh 'git --version'
-				sh 'docker --version'
-			    	sh 'mkdir /home/ubuntu/jenkin-agent|| true'
-	         					}
-									}
-
-	    	/*  stage('GetSource') {
-	            steps {
-	                git 'https://github.com/sandeepkaradegit/sandeepkaradegitproject.git'
-	            }
-	        }*/
-	        stage('Build') {
-	            steps {
-	                echo 'Docker image build started..'
-	    sh 'sudo docker images'
+	    	}
+	agent {
+        	label 'DOCKERNEW'
+	       	}
+	stages {
+	    stage('Job123PREPARE') {
+	      	steps {
+	            	sh 'java -version'
+	            	echo 'Puppet Agent Install and Configure..'
+			sh 'sudo apt-get update'
+			sh 'sudo apt-get install puppet -y'
+			sh 'sudo sh -c "echo [agent] >> /etc/puppet/puppet.conf"'
+		 	sh 'sudo sh -c "echo server=ip-172-31-35-33.eu-central-1.compute.internal >> /etc/puppet/puppet.conf"'              
+			sh 'sudo puppet agent --enable'
+			echo 'Puppet Agent will install Docker and Git CLI..'
+			sh 'sudo puppet agent -t|| true'
+			sh 'git --version'
+			sh 'docker --version'
+			sh 'mkdir /home/ubuntu/jenkin-agent|| true'
+		       }
+	        }
+	    stage('Job4BUILD')   {
+	       	steps {
+	               	echo 'Docker image build started..'
+	   		sh 'sudo docker images'
 			sh 'sudo docker ps -a'
 			sh 'sudo docker pull php:apache'
 			sh 'sudo docker stop ${JOB_NAME}${BUILD_NUMBER}||true'
@@ -52,20 +37,15 @@
 			echo 'Docker image build started..'
 	            }
 	        }
-	        stage('Test') {
-	            steps {
+	    stage('Job4TEST') {
+	        steps {
 	                echo 'Testing..'
 	            }
 	        }
-	        stage('Deploy') {
-	            steps {
-	                echo 'Deploying....'
-	            }
-	        }
-	    }
+	 }
 	    post {
 	        always {
 	            sh 'exit 0'
-	        }
-	    }
-	}
+	               }
+                 }
+}
