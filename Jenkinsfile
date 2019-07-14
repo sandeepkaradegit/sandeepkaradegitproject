@@ -17,7 +17,7 @@ pipeline {
 			sh 'sudo puppet agent -t|| true'
 			sh 'git --version'
 			sh 'docker --version'
-		    	sh 'mkdir /home/ubuntu/jenkin-agent'
+		    	sh 'mkdir /home/ubuntu/jenkin-agent|| true'
          					}
 								}
         
