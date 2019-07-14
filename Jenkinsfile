@@ -1,13 +1,11 @@
 pipeline {
 
     agent {
-        label 'DOCKERNEW'
-        }
-		def build_ok = true
+        	label 'DOCKERNEW'
+        	}
     stages {
-    stage('Preparation') {
-    try{
-            steps {
+    				stage('Preparation') {
+      			steps {
             		sh 'java -version'
             		echo 'Puppet Agent Install and Configure..'
 			sh 'sudo apt-get update'
@@ -20,12 +18,8 @@ pipeline {
 			sh 'git --version'
 			sh 'docker --version'
 		    	sh 'mkdir /home/ubuntu/jenkin-agent'
-            		}
-    } catch(e) {
-        build_ok = false
-        echo e.toString()  
-    }
-		}
+         					}
+								}
         
     	/*  stage('GetSource') {
             steps {
@@ -52,10 +46,10 @@ pipeline {
                 echo 'Deploying....'
             }
         }
-    if(build_ok) {
-        currentBuild.result = "SUCCESS"
-    } else {
-        currentBuild.result = "FAILURE"
     }
+    post {
+        always {
+            sh 'exit 0'
+        }
     }
 }
