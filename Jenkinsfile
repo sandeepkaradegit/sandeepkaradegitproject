@@ -4,7 +4,7 @@ pipeline {
 	        BUILD_NUMBER = "${env.BUILD_NUMBER}"
 	    	}
 	agent {
-        	label 'DOCKERNEW'
+        	label 'agenttest'
 	       	}
 	stages {
 	    stage('Job123PREPARE') {
@@ -33,7 +33,7 @@ pipeline {
 			sh 'sudo docker pull php:apache'
 			sh 'sudo docker stop ${JOB_NAME}${BUILD_NUMBER}||true'
 			sh 'sudo docker rm ${JOB_NAME}${BUILD_NUMBER}||true'
-			sh 'sudo docker run -d --name=${JOB_NAME}${BUILD_NUMBER} -p 80${BUILD_NUMBER}:80 -v /home/ubuntu/jenkin-agent/rel/${JOB_NAME}${BUILD_NUMBER}:/var/www/html php:apache'
+			sh 'sudo docker run -d --name=${JOB_NAME}${BUILD_NUMBER} -p 8081:80 -v /home/ubuntu/jenkin-agent/rel/${JOB_NAME}${BUILD_NUMBER}:/var/www/html php:apache'
 			sh 'sudo docker images'
 			sh 'sudo docker ps -a'
 			echo 'Docker image build started..'
